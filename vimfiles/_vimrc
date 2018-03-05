@@ -217,9 +217,12 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'fuenor/qfixhowm'
 Plugin 'Shougo/deoplete.nvim'
-Plugin 'Shougo/denite.vim'
+Plugin 'Shougo/denite.nvim'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'cocopon/iceberg.vim'
+" ColorScheme
+"Plugin 'cocopon/iceberg.vim'
+"Plugin 'romainl/Apprentice'
+Plugin 'jacoborus/tender.vim'
 call vundle#end()
 
 

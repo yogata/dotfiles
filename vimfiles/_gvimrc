@@ -13,6 +13,5 @@ elseif has('xfontset')
   set guifontset=a10,r10,k10
 endif
 
-colorscheme koehler
-colorscheme iceberg
+colorscheme tender
 
