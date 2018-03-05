@@ -19,9 +19,10 @@ set tabstop=4                   " <Tab> spaces
 set softtabstop=4               " tab key spaces
 set shiftwidth=4                " autotab spaces
 
-" statusline
+" statusline/tab
 set laststatus=2                " ステータスラインを常に表示
 set statusline=[%n]\ %F\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}\ %=[%c,%l]
+set showtabline=2               " タブを常に表示
 
 " search
 set wrapscan                    " 最後まで検索したら先頭に戻る
@@ -39,11 +40,8 @@ set suffixes=.bak.swp           " ファイル名補完で対象外を設定
 set shellslash                  " ディレクトリの区切り子
 set cmdheight=1                 " コマンドラインの行数
 set timeoutlen=1000             " マッピング，キーコードのタイムアウト時間
-
 set title                       " タイトルにファイル名を表示
 set titleold=                   " Vimを使ってくれて～を非表示
-
-set showtabline=2               " タブを常に表示
 
 " プログラム指定
 if s:iswin
@@ -175,9 +173,8 @@ nmap <silent> <ESC><ESC> :nohlsearch<CR>
 " コマンドラインで，カレントディレクトリを補完する
 cnoremap <C-x> <C-r>=expand('%:p:h')<CR>/
 
-" mapleader を戻す
-let mapleader="\\"
-
+" コマンドラインでMRU検索する。入力位置をフィルタ場所にする。
+cnoremap <C-f> <C-u>/ oldfiles<Home>browse filter /
 
 
 " fold "{{{1
