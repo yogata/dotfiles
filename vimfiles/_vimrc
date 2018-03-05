@@ -99,7 +99,7 @@ filetype plugin on
 
 
 " language and encoding "{{{1
-set encoding=cp932
+set encoding=utf8
 set fileencodings=utf-8,iso-2022-jp,shift-jis,cp932,utf-16,ucs-2le,ucs-2,utf-16lejapan
 set fileformat=unix
 set fileformats=unix,mac,dos
@@ -201,11 +201,13 @@ abbreviate #d #define
 
 
 " QFixHowm "{{{1
-let QFixHowm_Key = ','      "キーマップリーダー
-let howm_dir             = '~/work/howm'
-let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
-let howm_fileencoding    = 'cp932'
-let howm_fileformat      = 'dos'
+let QFixHowm_Key        = ','      "キーマップリーダー
+let QFixHowm_FileType   = 'qfix_memo'
+let QFixHowm_HolidayFile= 'Sche-Hd-0000-00-00-000000.txt'
+let howm_dir            = '~/work/howm'
+let howm_filename       = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
+let howm_fileencoding   = 'utf8'
+let howm_fileformat     = 'dos'
 
 
 
@@ -214,8 +216,8 @@ set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'fuenor/qfixhowm'
-Plugin 'Shougo/neocomplcache'
-Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'Shougo/denite.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()

@@ -1,15 +1,15 @@
 if has('win32')
-  " Windows—p
+  " Windowsç”¨
   "set guifont=MS_Gothic:h12:cSHIFTJIS
   "set guifont=MS_Mincho:h12:cSHIFTJIS
   set guifont=MS_Gothic:h10:cSHIFTJIS
-  " sŠÔŠu‚Ìİ’è
+  " è¡Œé–“éš”ã®è¨­å®š
   set linespace=1
 elseif has('mac')
   set guifont=Monaco:h10
   "set anti enc=utf-8 tenc=macroman gfn=Monaco:h12
 elseif has('xfontset')
-  " UNIX—p (xfontset‚ğg—p)
+  " UNIXç”¨ (xfontsetã‚’ä½¿ç”¨)
   set guifontset=a10,r10,k10
 endif
 
