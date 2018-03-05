@@ -123,6 +123,7 @@ set backup
 set backupcopy=auto
 set backupdir=$HOME/tmp
 set undodir=$HOME/tmp
+set directory=$HOME/tmp
 
 
 
