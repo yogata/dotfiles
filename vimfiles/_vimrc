@@ -1,0 +1,234 @@
+" detect OS "{{{1
+let s:iswin = has('win32') || has('win64')
+let s:ismac = has('mac')
+
+" set "{{{1
+set wildmode=list:longest       " 補完リストを表示
+set wildmenu                    " 補完リングを巡る
+set hidden                      " バッファが編集中でもその他のファイルを開けるように
+set autoread                    " 編集中ファイルが変更されたら自動で読み直す
+set backspace=indent,eol,start  " バックスペースで改行を削除
+set errorbells!                 " エラーベルを鳴らさない
+
+" indent
+set autoindent                  " 改行時にインデントを保持
+set smartindent                 " 文法に基づく自動インデント
+set showcmd                     "入力中のコマンドをステータスに表示する (右下の方)
+set expandtab                   " expand tab to space
+set tabstop=4                   " <Tab> spaces
+set softtabstop=4               " tab key spaces
+set shiftwidth=4                " autotab spaces
+
+" statusline
+set laststatus=2                " ステータスラインを常に表示
+set statusline=[%n]\ %F\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}\ %=[%c,%l]
+
+" search
+set wrapscan                    " 最後まで検索したら先頭に戻る
+set ignorecase                  " 大文字小文字の区別をしない
+set smartcase                   " 大文字を含む場合，大文字小文字の区別をする
+set hlsearch                    " ハイライトする
+set incsearch                   " インクリメントサーチする
+set showmatch                   " 括弧の対応を強調し対応がなければビープ音で警告する
+
+set wrap                        " 横幅が狭いとき改行する
+set number                      " 左に行番号を表示する
+set ruler                       " カーソルの位置を表示
+
+set suffixes=.bak.swp           " ファイル名補完で対象外を設定
+set shellslash                  " ディレクトリの区切り子
+set cmdheight=1                 " コマンドラインの行数
+set timeoutlen=1000             " マッピング，キーコードのタイムアウト時間
+
+set title                       " タイトルにファイル名を表示
+set titleold=                   " Vimを使ってくれて～を非表示
+
+set showtabline=2               " タブを常に表示
+
+" プログラム指定
+if s:iswin
+  set makeprg=mingw32-make
+else
+  set makeprg=make
+endif
+set grepprg=internal
+
+" タグの設定
+if has("autochdir")
+  set autochdir
+  set tags=tags;
+else
+  set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+endif
+
+" Macのバグ？日本語入力が途切れる問題を回避するため
+if s:ismac
+  set iminsert=1
+  set imdisable
+endif
+
+
+
+" autocmd "{{{1
+" カレントディレクトリを各バッファのファイルがある位置に変更する (CD.vim)
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
+" 前回終了したカーソル行に移動
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+
+
+" mouse and clipboard "{{{1
+set mouse=nvr
+set mousefocus
+set mousehide
+set guioptions+=a
+set clipboard=unnamed
+
+
+
+" highlight "{{{1
+augroup filetypedetect
+    autocmd BufNewFile,BufRead pf.* setf pf
+augroup END
+syntax on
+filetype on
+filetype indent on
+filetype plugin on
+
+
+
+" language and encoding "{{{1
+set encoding=cp932
+set fileencodings=utf-8,iso-2022-jp,shift-jis,cp932,utf-16,ucs-2le,ucs-2,utf-16lejapan
+set fileformat=unix
+set fileformats=unix,mac,dos
+set langmenu=japanese
+if $OSTYPE =~ "BSD"
+  language ja_JP.eucJP
+elseif $OSTYPE =~ "solaris"
+  language ja_JP.UTF-8
+elseif s:ismac
+  language ja_JP.UTF-8
+elseif s:iswin
+  language Japanese_Japan.932
+elseif $OSTYPE =~ "linux"
+  language ja_JP.UTF-8
+else
+  language ja_JP
+endif
+
+
+
+" backup/undo "{{{1
+set backup
+set backupcopy=auto
+set backupdir=$HOME/tmp
+set undodir=$HOME/tmp
+
+
+
+" mapping "{{{1
+" move inter window
+nmap <silent><C-K> <C-W>k
+nmap <silent><C-J> <C-W>j
+nmap <silent><C-L> <C-W>l
+nmap <silent><C-H> <C-W>h
+
+" visual last added characters
+nmap gc `[v`]
+
+" undo
+nmap < g-
+nmap > g+
+
+" jump
+nmap <silent> <Tab> <C-I>
+nmap <silent> <S-Tab> <C-O>
+
+" command mode 時 tcsh風のキーバインドに
+cmap <C-A> <Home>
+cmap <C-F> <Right>
+cmap <C-B> <Left>
+cmap <C-D> <Delete>
+
+" 表示行単位で行移動する
+nmap j gj
+nmap k gk
+vmap j gj
+vmap k gk
+
+" 編集中移動する
+imap <C-E> <C-X><C-E>
+imap <C-Y> <C-X><C-Y>
+
+" f での探索は前方が ; 後方が , だが , は vim-howm で使っているので<space>;を,代わりにする
+nnoremap <space>; ,
+
+" ,t で時間を表示する (メモをとる(howm等)ときに使えるかも)
+nmap ,td :call append(line("."), "[" . strftime("%Y-%m-%d") . "]")<CR>
+nmap ,tt :call append(line("."), "[" . strftime("%H:%M:%S") . "]")<CR>
+
+" ESC を連打してハイライトをやめる
+nmap <silent> <ESC><ESC> :nohlsearch<CR>
+
+" コマンドラインで，カレントディレクトリを補完する
+cnoremap <C-x> <C-r>=expand('%:p:h')<CR>/
+
+" mapleader を戻す
+let mapleader="\\"
+
+
+
+" fold "{{{1
+set foldtext=MyFoldText()
+function! MyFoldText()
+  let line = getline(v:foldstart)
+  let sub = substitute(line, '/\*\|\*/\|{{{\d\=\|{', '', 'g')
+  let fold_line = v:foldend - v:foldstart
+  let prefix = repeat('-', v:foldlevel)
+  return "+" . prefix . " " . printf("%3d", fold_line) . " lines: " . sub . " |"
+endfunction
+set foldmethod=marker
+set foldenable
+
+
+
+" abbreviate "{{{1
+abbreviate #i #include
+abbreviate #d #define
+
+
+
+" QFixHowm "{{{1
+let QFixHowm_Key = ','      "キーマップリーダー
+let howm_dir             = '~/work/howm'
+let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
+let howm_fileencoding    = 'cp932'
+let howm_fileformat      = 'dos'
+
+
+
+" Vundle " {{{1
+set runtimepath+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'fuenor/qfixhowm'
+Plugin 'Shougo/neocomplcache'
+Plugin 'Shougo/unite.vim'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'cocopon/iceberg.vim'
+call vundle#end()
+
+
+
+" read local config "{{{1
+if filereadable( $VIM . "/_vimrc_local" )
+  source $VIM/_vimrc_local
+endif
+if filereadable( $HOME . "/.vimrc_local" )
+  source $HOME/.vimrc_local
+endif
+
+
+

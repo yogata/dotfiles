@@ -1,0 +1,52 @@
+#
+# $HOME/.zshrc.alias
+#
+
+echo "reading $HOME/.zshrc.alias"
+
+
+# command check
+which vim   > /dev/null && alias vi='vim'
+which jless > /dev/null && alias less='jless'
+which jman  > /dev/null && alias man='jman'
+
+
+alias   c='clear'
+alias   e='exit'
+alias   h='history'
+alias   rm='rm -i'
+alias   mv='mv -i'
+alias   cp='cp -i'
+alias   rr='rm -rf'
+alias   less='\less --tab=4 -M -X'
+if [ "$OSTYPE" = "linux-gnu" ]; then
+  alias   ls='ls -F --color'
+else
+  alias   ls='ls -wFG'
+fi
+alias   la='ls -a'
+alias   lal='ls -al'
+alias   lla='ls -al'
+alias   ll='ls -l'
+alias   lll='ls -l|less -R'
+alias   emacs='emacs -nw'
+alias   mew='emacs -f mew'
+alias   lookup='emacs -f lookup'
+alias   howm='emacs -f howm-menu'
+alias   wiki='emacs -f emacs-wiki-mode'
+alias   vig='vi /etc/group'
+alias   vivim='vi ~/.vimrc'
+alias   vip='vi ~/.plan'
+alias   vics='vi ~/.cshrc'
+alias   vicl='vi ~/.cshrc.local'
+alias   viz='vi ~/.zshrc'
+alias   viza='vi ~/.zshrc.alias'
+alias   vize='vi ~/.zshenv'
+alias   vizc='vi ~/.zshrc.completion'
+alias   vizs='vi ~/.zshrc.setopt'
+alias   vizl='vi ~/.zshrc.local'
+alias   soz='source ~/.zshrc'
+alias   bsd='unalias make; set path=(/{,usr/{,X11R6/,local/}}{,s}bin )'
+alias   logs='tail -f /var/log/{{auth,console,natd,postgress,samba,snort}.log,maillog,messages,security,cron} /usr/local/apache2/logs/{access,error,suexec}_log'
+alias   alogs='tail -f /var/log/all.log /usr/local/apache2/logs/{{access,error,suexec}_log}'
+

@@ -1,0 +1,219 @@
+#echo "reading $HOME/.cshrc"
+
+
+
+#[ COLOR ]######################################################################
+setenv BLACK  "%{\e[00;30m%}"
+setenv RED    "%{\e[00;31m%}"
+setenv GREEN  "%{\e[00;32m%}"
+setenv YELLOW "%{\e[00;33m%}"
+setenv BLUE   "%{\e[00;34m%}"
+setenv PERPLE "%{\e[00;35m%}"
+setenv CYAN   "%{\e[00;36m%}"
+setenv WHITE  "%{\e[00;37m%}"
+
+
+
+################################################################################
+#[ set ]########################################################################
+################################################################################
+
+set addsurffix          # add :: dir -> /, file -> space
+#set afsuser            # use alter local user name 4 autologout
+#unset ampm              # use 12h unit am/pm format
+#set autocorrect       # exec spell-word b4 comp
+#set autoexpand          # exec epand-history b4 comp
+set autolist            # list
+set autologout = 300    # autologout after certain minuits
+#set backslash_quote     # quote backslash
+#set catalog            # use catalog message
+#set cdpath = ~/        # search directory list when cant find under current dir
+set color               # enable ls-F (ls --color=auto)
+set colorcat            # enable color escape sequence for NLS message file
+#set command             # consider "-c" flag
+#set continue
+#set correct
+#set dextract
+set dspmbyte = euc
+set edit
+#set ellipsis
+#set fignore
+set filec
+#set histchars = !
+#set histdup = prev
+#set histfile = ~/.history
+#set histlit
+set history = 1000
+set ignoreeof
+set implicitcd = verbose    # command = dir name -> cd
+#set inputmode
+#set killdup
+#set killring
+#set listflags = a          # add on. a -> ls-F = ls -aF
+#set listjobs = long
+#set listlinks
+set listmax = 100           # max args without ask whether list
+set listmaxrows = 100
+set nobeep
+set noclobber
+#unset noding
+#unset noglob
+#unset nokanji
+#unset nonomatch
+#unset nostat
+set notify
+#unset promptchars
+#set printexitvalue
+set pushdtohome
+#unset recexact
+set rmstar
+#set recoginize_only_executables
+set savedirs = 100
+set savehist = 1000
+set symlinks = expand
+#set verbose
+set watch = (0 any any)
+set who = "%n has %a %l from %M."
+#set wordchars = `*?_-.[]~='
+limit coredumpsize 0
+
+#[ path ]#######################################################################
+set path = ()
+set path = ($path ~/bin)
+set path = ($path /{usr/{local/,X11R6/,},}{,s}bin)
+set path = ($path /usr/local/{pgsql,apache2,java}/{,s}bin)
+set path = ($path /usr/lib/courier-imap/{{,s}bin,libexec})
+set path = ($path /usr/ucb /usr/ccs/bin)
+
+#[ time ]#######################################################################
+set time=(8 "\
+    Time spent in user mode   (CPU seconds) : %Us\
+    Time spent in kernel mode (CPU seconds) : %Ss\
+    Total time                              : %Es\
+    CPU utilisation (percentage)            : %P\
+    Times the process was swapped           : %W\
+    Times of major page faults              : %F\
+    Times of minor page faults              : %R")
+
+#[ prompt ]#####################################################################
+if ( $uid == 0) then
+    set prompt  = "%{\e[00;31m`whoami`\e[00m%}@%m [%c2]%# "
+else
+    set prompt  = "${BLUE}${user}${WHITE}@%m%# "
+endif
+set rprompt = "${GREEN}[%~]${WHITE}"
+
+
+
+################################################################################
+#[ setenv ]#####################################################################
+################################################################################
+
+setenv  PERL_BADLANG 0
+setenv  LANG ja_JP.eucJP
+setenv  EDITOR vim
+setenv  PAGER jless
+setenv  QTDIR /usr/local/qt
+setenv  XMODIFIERS "@im=uim-anthy"
+setenv  GTK_IM_MODULE "uim-anthy"
+#setenv  JAVA_HOME /usr/local/java
+#setenv  CLASSPATH /usr/local/java/lib:.
+#setenv  ANT_HOME /usr/local/ant
+
+
+
+################################################################################
+#[ alias ]######################################################################
+################################################################################
+
+#[ generic ]####################################################################
+alias  c     clear
+alias  e     exit
+#alias  make   gmake
+alias  vi     vim
+alias  man     jman
+alias  less   jless
+alias  rm    'rm -i'
+alias  mv    'mv -i'
+alias  cp    'cp -i'
+alias  rr    'rm -rf'
+alias  pwd    'echo $cwd'
+#alias ls    'ls -F --color --show-control-chars'
+alias  ls      'ls -wGF'
+alias  la    'ls -a'
+alias  ll    'ls -al'
+alias  lll    'ls -al|less -R'
+alias  mew    'emacs -f mew'
+alias  lookup  'emacs -f lookup'
+alias  howm  'emacs -f howm-menu'
+alias  vics  'vi ~/.cshrc'
+alias  vilo  'vi ~/.local'
+alias  socs  'source ~/.cshrc'
+alias  bsd    'unalias make; set path=(/{,usr/{,X11R6/,local/}}{,s}bin )'
+alias  precmd  '/usr/bin/printf "\033]0;${USER}@${HOST}:${cwd}\007"'
+alias  logs  'sudo colortail --config=/usr/local/share/colortail/customize -f /var/log/all.log /var/remu_log/all.log /usr/local/apache2/logs/{{access,error}_log,suexec}'
+
+#[ for typo ]###################################################################
+alias  sl    ls
+alias  telent  telnet
+alias  gerp    grep
+
+#[ for ssh ]####################################################################
+alias  remu  'ssh remu.no-ip.org -l yasuhiko'
+alias  chronicle  'ssh 192.168.2.11 -l yasuhiko'
+alias  tm  'ssh tm06.isc.kyutech.ac.jp -l c232015y'
+
+
+
+################################################################################
+#[ complete ]###################################################################
+################################################################################
+if ( $?tcsh ) then
+  uncomplete  *
+  complete  cd             'p/1/d/'
+  complete  {un,}setenv    'p/1/e/'
+  complete  {un,}set       'p/1/s/'
+  complete  unalias        'p/1/a/'
+  complete  man            'p/*/c/'
+  complete  {which,where}  'p/1/c/'
+  complete  {id,finger}    'p/*/u/'    
+  complete  chown          'p/1/u/'
+  complete  {write,talk}   'p/1/`finger | awk \{print\ \$1\} | tail +2 | sort -u`/'
+  setenv  PKG  /var/db/pkg
+  complete  {pkg_{delete,info},portupgrade}  'p/*/`\ls $PKG`/'
+  complete  ./configure  'c/*=/f/' 'C@--*@`./configure --help | sed -n "s/.*\(--[-=A-Za-z]*\).*/\1/p" `@'
+  set  autocorrect
+  set  correct
+endif
+
+
+
+#################################################################################
+#[ bindkey ]#####################################################################
+#################################################################################
+
+bindkey -e
+bindkey "^W" backward-delete-word
+bindkey -k down history-search-forward
+bindkey -k up history-search-backward
+
+
+
+### read local setting
+if ( -f ~/.local) then
+  source ~/.local
+endif
+
+
+
+### additionally reset in the terminal
+if ( $TERM == cons25) then
+  unalias  precmd
+endif
+
+#if ( -f /usr/X11R6/bin/mlterm ) then
+#  if ( $TERM == kterm ) then
+#    set  prompt = "%{\e[00;31m${user}\e[00m%}@%m [%c2]%# "
+#    setenv LS_COLORS 'no=00:fi=00:di=00;34:ln=00;36:pi=40;33:so=00;35:do=00;35:bd=40;33;00:cd=40;33;00:or=40;31;00:ex=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.deb=00;31:*.rpm=00;31:*.jar=00;31:*.jpg=00;35:*.jpeg=00;35:*.gif=00;35:*.bmp=00;35:*.pbm=00;35:*.pgm=00;35:*.ppm=00;35:*.tga=00;35:*.xbm=00;35:*.xpm=00;35:*.tif=00;35:*.tiff=00;35:*.png=00;35:*.mov=00;35:*.mpg=00;35:*.mpeg=00;35:*.avi=00;35:*.fli=00;35:*.gl=00;35:*.dl=00;35:*.xcf=00;35:*.xwd=00;35:*.ogg=00;35:*.mp3=00;35:*.wav=00;35:'
+#  endif
+#endif

@@ -1,0 +1,18 @@
+if has('win32')
+  " Windows用
+  "set guifont=MS_Gothic:h12:cSHIFTJIS
+  "set guifont=MS_Mincho:h12:cSHIFTJIS
+  set guifont=MS_Gothic:h10:cSHIFTJIS
+  " 行間隔の設定
+  set linespace=1
+elseif has('mac')
+  set guifont=Monaco:h10
+  "set anti enc=utf-8 tenc=macroman gfn=Monaco:h12
+elseif has('xfontset')
+  " UNIX用 (xfontsetを使用)
+  set guifontset=a10,r10,k10
+endif
+
+colorscheme koehler
+colorscheme iceberg
+
