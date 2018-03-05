@@ -1,4 +1,0 @@
-set backupdir=$HOME\Documents\ogataysa\999_tmp
-set undodir=$HOME\Documents\ogataysa\999_tmp
-
-let howm_dir="$HOME/Documents/ogataysa/998_howm"
