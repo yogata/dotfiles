@@ -1,0 +1,87 @@
+#
+# $HOME/.zshrc.completion
+#
+
+echo "reading $HOME/.zshrc.completion"
+
+
+
+################################################################################
+#[ ABBREVIATION ]###############################################################
+################################################################################
+
+#typeset -A myabbrev
+#myabbrev=(
+##    "viz"   "vi ~/.zshrc"
+##    "vis"   "vi ~/.zshrc.setopt"
+##    "vic"   "vi ~/.zshrc.completion"
+##    "via"   "vi ~/.zshrc.alias"
+#    "lg"    "| grep"
+#    "tx"    "tar -xvzf"
+#    "psa"   "ps -auxww"
+#    "psg"   "ps -auxww| grep"
+#    "logs"  'tail -f /var/log/{{auth,console,natdpostgress,samba,snort}.log,maillog,messages,security,cron} /usr/local/apache2/logs/{{access,error}_log,suexec}'
+#)
+#my-expand-abbrev() {
+#    local left prefix
+#    left=$(echo -nE "$LBUFFER" | sed -e "s/[_a-zA-Z0-9]*$//")
+#    prefix=$(echo -nE "$LBUFFER" | sed -e "s/.*[^_a-zA-Z0-9]\([_a-zA-Z0-9]*\)$/\1/")
+#    LBUFFER=$left${myabbrev[$prefix]:-$prefix}" "
+#}
+#zle -N my-expand-abbrev
+#bindkey     " "         my-expand-abbrev
+
+
+
+################################################################################
+#[ COMPLETION ]#################################################################
+################################################################################
+
+#[ Default ]####################################################################
+zstyle ':completion:*' add-space true
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list
+# 補完候補をカーソルで選択する
+zstyle ':completion:*' menu select=1
+#zstyle ':completion:*' file-sort name
+# 補完候補に色を付ける
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# 補完時に大小文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完対象がないときに一文字ずつ遡って correct
+#zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+#zstyle ':completion:*:complete:*' use-cache 1
+#zstyle ':completion:*:complete:*' cache-path $ZDOTDIR/.zcompcache/
+
+#[ Formats ]####################################################################
+# 補完リストを冗長な形式で表示(ex. kill 補完で pid が ps 表示のリストになる)
+zstyle ':completion:*' verbose yes
+# ???
+zstyle ':completion:*' group 1
+# category string format at completion
+zstyle ':completion:*' format '%B---- %d%b'
+# correct リストを表示
+zstyle ':completion:*:corrections' format '%B---- %d (errors %e)%b'
+# 引数の属する種類名を表示(group-nameと組み合わせて種類と引数をセットで表示)
+zstyle ':completion:*:descriptions' format "%B---- %d%b"
+# ???
+zstyle ':completion:*:messages' format '%B%U---- %d%u%b' 
+# マッチする引数が見つからないとき、何を探索対象としたかを表示
+#zstyle ':completion:*:warnings' format "%B$fg[red]%}---- no match for: $fg[white]%d%b"
+# 引数を種類別(File/ExternalCommand/BuiltinCommand/Aliasなど)に表示
+zstyle ':completion:*' group-name ''
+
+#[ Kill ]#######################################################################
+zstyle ':completion:*:processes' command 'ps -au$USER -o pid,time,cmd|grep -v "ps -au$USER -o pid,time,cmd"'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)[ 0-9:]#([^ ]#)*=01;30=01;31=01;38'
+
+
+compctl -c man jman
+if [ -f "~/.ssh/known_hosts*" ]; then
+  hosts=(`awk '{ sub(/[^A-Za-z0-9.:%-].*/, ""); print }' ~/.ssh/known_hosts* | sort | uniq`)
+else
+  hosts=""
+fi
+compctl -k hosts ssh ping telnet rsh rmserver mtr rmhost add_zshrc add_key
+
+#apps=( a b c d `ls /Applications` )
+#compctl -k apps -f -- open -a

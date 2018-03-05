@@ -1,0 +1,203 @@
+#
+# $HOME/.zshrc.setopt
+#
+
+# 右の備考は通常の挙動
+# no_を先頭に付けた場合は反転する
+
+echo "reading $HOME/.zshrc.setopt"
+
+
+
+#[ a ]##########################################################################
+setopt aliases              # expand aliases
+setopt all_export           # define = export
+setopt always_last_prompt  # 補完リストを最下に表示
+setopt always_to_end        # 補完時に文字列末尾へカーソル移動
+setopt append_history       # ヒストリを(上書きではなく)追加する
+setopt auto_cd              # ディレクトリだけを入力したとき cd
+setopt auto_continue        # send SIGCONT to jobs disowned
+setopt auto_list            # 補完リストを表示
+setopt auto_menu            # (Tabなどを押すたびに)補完対象を切り替える
+setopt auto_name_dirs       # ディレクトリ名に環境変数をすぐ適用
+setopt auto_param_keys      # カッコの対応などを自動的に補完する
+setopt auto_param_slash     # ディレクトリ名の補完で末尾の / を自動的に付加し，次の補完に備える
+setopt auto_pushd           # cd -[tab] でpushd
+setopt auto_remove_slash    # ディレクトリが入力されたとき最後の/を除去
+#setopt no_auto_resume      # bg ジョブと同じコマンドを叩いた時 bg ジョブを fg ジョブに移す
+
+#[ b ]##########################################################################
+setopt bad_pattern          # ファイル名を生成するパターンの形式が間違っていたらエラーメッセージを表示
+#setopt bang_hist           # `!' を csh 的解釈に
+#setopt bare_glob_qual      # ???
+#setopt no_bash_auto_list   # 曖昧補完を１回目は行わない
+#setopt no_beep             # ビープ音をならす
+setopt bg_nice              # bg ジョブを低優先度で実行
+setopt brace_ccl            # {a-c} -> a b c のような展開を有効に
+setopt bsd_echo             # bsd echo 互換 (-e 時のみエスケープ有効)
+
+#[ c ]##########################################################################
+setopt c_bases              # 16進数, 8進数を 16# => 0x , 8# => 0 形式に
+#setopt cdable_vars         # cd (or auto_cd な暗黙の cd) が / から始まってないときは
+                            # ~/ がついているものとして式を展開
+setopt no_chase_dots         # somewhere/.. の時だけsym-link を展開
+setopt no_chase_links        # いつでも sym-link を展開
+setopt check_jobs           # logout 時に bg ジョブがあれば警告
+setopt clobber              # `>' `>>' を有効に
+#setopt no_complete_aliases # complete をエイリアス後には適用しない
+setopt complete_in_word     # カーソル位置から補完する
+#setopt correct             # コマンドのスペル補正
+#setopt correct_all         # 全引数のスペル補正
+#setopt no_csh_junkie_history
+                            # `!' を直前コマンドに置換
+#setopt no_csh_junkie_loops # `list; end' を `do list; done' と等価に
+#setopt no_csh_junkie_quotes
+                            # ' や " の解釈を csh にあわせる
+#setopt no_csh_nullcmd      # コマンド無しのリダイレクションを実行する時，NULLCMD と READNULLCMD の値を使わない
+setopt no_csh_null_glob     # ファイル生成のパターンが全部マッチしないパターンの時だけエラーを報告する
+
+#[ d ]##########################################################################
+#setopt no_dvorak           # スペル補正の判定に Dovorak キーボードを用いる
+
+#[ e ]##########################################################################
+setopt equals               # =command を `which command`(commandのパス) に展開
+#setopt err_exit            # ???
+#setopt exec                # ???
+setopt extended_glob        # `#' `~' `^' を正規表現とみなす
+setopt no_extended_history  # コマンドの開始/終了タイムスタンプをヒストリにとる
+
+#[ f ]##########################################################################
+#setopt flow_control        # Ctrl+S/Ctrl+Q によるフロー制御を使わないようにする
+#setopt function_argzero    # $0 を関数やスクリプトの名に
+
+#[ g ]##########################################################################
+setopt glob                 # ファイル名生成を行う
+#setopt global_export       # ???
+#setopt global_rcs          # /etc から設定ファイルを読み込む
+#setopt no_glob_assign      # ファイル名生成を `name=pattern' の右辺で有効にする -> わけわからなくなる……らしい
+setopt glob_complete        # ファイル名生成で正規表現から正規表現を置換し補完
+#setopt glob_dots           # .* を . なしでマッチさせる
+#setopt glob_subst          # ???
+
+#[ h ]##########################################################################
+#setopt hash_cmds           # 各コマンドが実行されるときにパスをハッシュに入れる
+#setopt hash_dirs           # ??? (depends HASH_CMDS/CORRECT)
+#setopt hash_list_all       # ???
+setopt hist_allow_clobber   # `>' を `>|' としてヒストリ
+#setopt no_hist_beep        # 履歴が存在しないときビープ音を鳴らす
+setopt hist_expire_dups_first
+                            # ヒストリがあふれたとき古いイベントから消す
+#setopt hist_find_no_dups   # 行エディタで編集時連続するイベントは表示しない
+setopt no_hist_ignore_all_dups
+                            # 追加しようとするイベントが履歴にあるとき，それを消す
+setopt hist_ignore_dups     # 直前と同じイベントは履歴に追加しない
+setopt no_hist_ignore_space # 頭がスペースのとき履歴に残さない
+#setopt hist_no_functioins   # 関数の定義を履歴に残さない
+setopt hist_no_store        # history コマンドを履歴に残さない
+setopt hist_reduce_blanks   # 余分な空白を除去して履歴に追加
+setopt no_hist_save_no_dups # 重複するコマンドは古いほうを消して履歴ファイルに出力
+setopt no_hist_verify          # ヒストリを呼び出してから実行する間に一旦編集できる状態になる
+setopt NO_hup               # シェルを終えるとき実行中ジョブに HUP シグナルを送る(NOで送らない)
+
+#[ i ]##########################################################################
+#setopt no_ignore_braces    # {} の展開を行わない
+setopt ignore_eof           # EOF(^D) で終了しない
+setopt inc_append_history   # 逐一履歴ファイルに書き出す
+#setopt interactive         # ???
+setopt interactive_comments # 対話的シェルでコメントを使える
+
+#[ j ]##########################################################################
+
+#[ k ]##########################################################################
+#setopt no_ksh_arrays       # ksh 配列操作をエミュレート
+#setopt no_ksh_autoload     # ksh の autoload をエミュレート
+#setopt no_ksh_glob         # ???
+#setopt no_ksh_option_print # ???
+#setopt no_ksh_typeset      # ???
+
+#[ l ]##########################################################################
+setopt list_ambiguous       # 曖昧な補完のときリストを同時には表示しない
+setopt no_list_beep         # 曖昧な補完のときビープ音をならす
+setopt list_packed          # カラムごとに幅を変えて補完リストの行数を少なくしようとする
+#setopt list_rows_first     # 補完リストを左から右へ並べる
+setopt list_types           # 補完リストにファイルタイプのマークをつける
+#setopt local_options       # ???
+#setopt local_traps         # ???
+setopt login                # .zlogin を走らせる
+#setopt no_long_list_jobs   # jobs を jobs -l に
+
+#[ m ]##########################################################################
+setopt magic_equal_subst    # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+#setopt mail_warning        # メールが着たら告知
+setopt mark_dirs            # ファイル名生成でディレクトリには / をつける
+#setopt no_menu_complete    # 曖昧な補完で候補表示をせず最初の候補を挿入
+setopt monitor              # ジョブ管理を有効に
+setopt multios              # 複数のリダイレクションを行うとき，暗黙で cat/tee を行う
+
+#[ n ]##########################################################################
+setopt nomatch              # ファイル名生成のパターンにマッチしないときエラーを表示
+setopt notify               # bg ジョブの状態をすぐ表示
+setopt null_glob            # ファイル名生成のパターンにマッチしないとき，引数リストからそのパターンを除去
+setopt numeric_glob_sort    # ファイル名の展開で、辞書順ではなく数値的にソートされるようになる
+
+##[ o ]##########################################################################
+##setopt no_octal_zeroes     # 0 から始まる全ての整数定数を8進数とみなす
+##setopt overstrike          # ???
+##setopt no_path_dirs        # コマンド名にスラッシュ / が入っているときもパス探索を行う
+
+#[ p ]##########################################################################
+#setopt posix_builtins      # ???
+setopt print_eight_bit      # 8ビット文字をそのまま表示
+#setopt print_exit_value     # 戻り値が 0 以外の場合終了コードを表示する
+#setopt priviledged         # ???
+#setopt prompt_bang         # ???
+#setopt prompt_cr           # 文字列末尾に改行コードが無い場合でも表示する
+#setopt prompt_percent      # ???
+setopt prompt_subst         # 色を使う
+setopt pushd_ignore_dups    # ディレクトリスタックに重複するディレクトリを積まない
+setopt pushd_minus          # `+' '-` の意味を反転
+#setopt pushd_silent        # pushd/popd の後でディレクトリスタックを表示しない
+#setopt pushd_to_home       # 引数なしの pushd は `pushd $HOME' のように振る舞う
+
+#[ q ]##########################################################################
+
+#[ r ]##########################################################################
+#setopt rc_expand_param     # ???
+#setopt rc_quotes           # ???
+#setopt no_rcs              # /etc/zshenv 以外読み込まない
+#setopt no_rec_exact        # 補完候補が未確定でも完全マッチがあればそれを採用
+#setopt restricted          # 制限モードを有効に
+setopt rm_star_silent       # `rm *' `rm path/*' を実行する前に問い合わせない
+#setopt no_rm_star_wait     # `rm *' `rm path/*' を実行する前に10秒待つ
+
+#[ s ]##########################################################################
+setopt share_history        # シェルのプロセスごとに履歴を共有
+#setopt sh_file_expansion   # ???
+#setopt sh_glob             # ???
+#setopt shin_stdin          # ???
+#setopt sh_nullcmd          # ???
+#setopt sh_option_letters   # ???
+#setopt short_loops         # for, repeat, select, if, function などで簡略文法が使えるようになる
+#setopt sh_workd_split      # ???
+#setopt single_command      # ???
+#setopt single_line_zle     # 単一行コマンドライン編集を使う
+#setopt sun_keyboard_hack   # for type
+
+#[ t ]##########################################################################
+setopt transient_rprompt    #コピペの時rpromptを非表示する
+
+#[ u ]##########################################################################
+#setopt unset               # ???
+
+#[ v ]##########################################################################
+#setopt no_verbose          # 入力行を読み込まれたとおりに表示
+
+#[ w ]##########################################################################
+
+#[ x ]##########################################################################
+#setopt trace               # コマンドとその引数を，実行されたとおりに表示
+
+#[ y ]##########################################################################
+
+#[ z ]##########################################################################
+
