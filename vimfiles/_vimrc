@@ -220,7 +220,10 @@ Plugin 'Lokaltog/vim-easymotion'
 " ColorScheme
 "Plugin 'cocopon/iceberg.vim'
 "Plugin 'romainl/Apprentice'
-Plugin 'jacoborus/tender.vim'
+"Plugin 'jacoborus/tender.vim'
+Plugin 'gosukiwi/vim-atom-dark'
+Plugin 'raphamorim/lucario'
+Plugin 'jonathanfilip/vim-lucius'
 call vundle#end()
 
 
