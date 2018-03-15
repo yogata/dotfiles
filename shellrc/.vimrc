@@ -1,114 +1,58 @@
-" set "{{{
-" Êä´°¥ê¥¹¥È¤òÉ½¼¨
-set wildmode=list:longest
-" Êä´°¥ê¥ó¥°¤ò½ä¤ë
-"set wildmenu
+" detect OS "{{{1
+let s:iswin = has('win32') || has('win64')
+let s:ismac = has('mac')
+let OSTYPE = system('uname')
 
-" ¥Ğ¥Ã¥Õ¥¡¤¬ÊÔ½¸Ãæ¤Ç¤â¤½¤ÎÂ¾¤Î¥Õ¥¡¥¤¥ë¤ò³«¤±¤ë¤è¤¦¤Ë
-set hidden
+" set "{{{1
+set wildmode=list:longest       " è£œå®Œãƒªã‚¹ãƒˆã‚’è¡¨ç¤º
+set wildmenu                    " è£œå®Œãƒªãƒ³ã‚°ã‚’å·¡ã‚‹
+set hidden                      " ãƒãƒƒãƒ•ã‚¡ãŒç·¨é›†ä¸­ã§ã‚‚ãã®ä»–ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã‘ã‚‹ã‚ˆã†ã«
+set autoread                    " ç·¨é›†ä¸­ãƒ•ã‚¡ã‚¤ãƒ«ãŒå¤‰æ›´ã•ã‚ŒãŸã‚‰è‡ªå‹•ã§èª­ã¿ç›´ã™
+set backspace=indent,eol,start  " ãƒãƒƒã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã§æ”¹è¡Œã‚’å‰Šé™¤
+set errorbells!                 " ã‚¨ãƒ©ãƒ¼ãƒ™ãƒ«ã‚’é³´ã‚‰ã•ãªã„
 
-" ³°Éô¤Î¥¨¥Ç¥£¥¿¤ÇÊÔ½¸Ãæ¤Î¥Õ¥¡¥¤¥ë¤¬ÊÑ¹¹¤µ¤ì¤¿¤é¼«Æ°¤ÇÆÉ¤ßÄ¾¤¹
-set autoread
+" indent
+set autoindent                  " æ”¹è¡Œæ™‚ã«ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚’ä¿æŒ
+set smartindent                 " æ–‡æ³•ã«åŸºã¥ãè‡ªå‹•ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ
+set showcmd                     "å…¥åŠ›ä¸­ã®ã‚³ãƒãƒ³ãƒ‰ã‚’ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã«è¡¨ç¤ºã™ã‚‹ (å³ä¸‹ã®æ–¹)
+set expandtab                   " expand tab to space
+set tabstop=4                   " <Tab> spaces
+set softtabstop=4               " tab key spaces
+set shiftwidth=4                " autotab spaces
 
-" ºï½üÂĞ¾İ
-set backspace=indent,eol,start
-set noerrorbells
-
-" ¥¿¥ÖÉı¤ÎÀßÄê
-set expandtab     "expand tab to space
-set tabstop=2     "<Tab> spaces
-set softtabstop=2 "tab key spaces
-set shiftwidth=2  "autotab spaces
-
-" ¥¹¥Æ¡¼¥¿¥¹¥é¥¤¥ó
-set laststatus=2
-" set statusline=%<%F\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}\ %n%=%l/%L,%c%V%8P
+" statusline/tab
+set laststatus=2                " ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã‚’å¸¸ã«è¡¨ç¤º
 set statusline=[%n]\ %F\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}\ %=[%c,%l]
-"f/F/t S  ¥Ğ¥Ã¥Õ¥¡Æâ¤Î¥Õ¥¡¥¤¥ë¤Î¥Ñ¥¹¡¥ÁêÂĞ / ÀäÂĞ / ¥Õ¥¡¥¤¥ëÌ¾¤Î¤ß
-"m/M F  ½¤Àµ¥Õ¥é¥°¡£É½¼¨¤µ¤ì¤ë¤Î¤Ï "[+]" / ",+"¡£'modifiable' ¤¬¥ª¥Õ¤Î¤È¤­¤Ï "[-]" / ",-"
-"r/R F  ÆÉ¤ß¹ş¤ßÀìÍÑ¥Õ¥é¥°¡£É½¼¨¤µ¤ì¤ë¤Î¤Ï "[RO]" / ",RO"
-"h/H F  ¥Ø¥ë¥×¥Ğ¥Ã¥Õ¥¡¥Õ¥é¥°¡£É½¼¨¤µ¤ì¤ë¤Î¤Ï "[¥Ø¥ë¥×]" / ",HLP"
-"w/W F  ¥×¥ì¥Ó¥å¡¼¥¦¥£¥ó¥É¥¦¥Õ¥é¥°¡£É½¼¨¤µ¤ì¤ë¤Î¤Ï "[¥×¥ì¥Ó¥å¡¼]" / ",PRV"
-"y/Y F  ¥Ğ¥Ã¥Õ¥¡Æâ¤Î¥Õ¥¡¥¤¥ë¤Î¥¿¥¤¥×¡£Îã¤¨¤Ğ "[vim]" / ",VIM"' (filetype' ¤ò»²¾È)
-"k S    Â¾¸À¸ìÍÑ¥Ş¥Ã¥Ô¥ó¥° |:lmap| ¤¬»È¤ï¤ì¤Æ¤¤¤ë¤È¤­¡¢ÊÑ¿ô "b:keymap_name" ¤Ş¤¿¤Ï 'keymap' ¤ò "<keymap>" ¤ÈÉ½¼¨¤¹¤ë¡£
-"n N    ¥Ğ¥Ã¥Õ¥¡ÈÖ¹æ¡£
-"b/B N  ¥«¡¼¥½¥ë²¼¤ÎÊ¸»ú¤ÎÊ¸»ú¥³¡¼¥É¤Î 10 / 16 ¿Ê¿ôÉ½¸½¡£
-"o/O N  ¥«¡¼¥½¥ë²¼¤ÎÊ¸»ú¤¬¥Õ¥¡¥¤¥ëÆâ¤Ç²¿¥Ğ¥¤¥ÈÌÜ¤Ç¤¢¤ë¤«¡£10 / 16 ¿Ê¿ôÉ½¸½¡¥ÀèÆ¬¤Ç¤Ï1¡£
-"N N    °õºş»ş¤Î¥Ú¡¼¥¸ÈÖ¹æ ('printheader' Æâ¤Ç¤Î¤ßÍ­¸ú)¡£
-"l N    ²¿¹ÔÌÜ¤Ë¥«¡¼¥½¥ë¤¬¤¢¤ë¤«¡£
-"L N    ¥Ğ¥Ã¥Õ¥¡Æâ¤ÎÁí¹Ô¿ô¡£
-"c N    ²¿ÎóÌÜ¤Ë¥«¡¼¥½¥ë¤¬¤¢¤ë¤«¡£
-"v/V N  ²èÌÌ¾å¤Î²¿ÎóÌÜ¤Ë¥«¡¼¥½¥ë¤¬¤¢¤ë¤«¡£V¤ÎÉ½¼¨·Á¼°¤Ï -{num}(Á°¤Ë-¤¬¤Ä¤¯)¡£ÃÍ¤¬ 'c' ¤ÈÅù¤·¤±¤ì¤ĞÉ½¼¨¤µ¤ì¤Ê¤¤¡£
-"p N    ¸½ºß¹Ô¤¬¥Õ¥¡¥¤¥ëÆâ¤Î²¿¡ó¤Î°ÌÃÖ¤Ë¤¢¤ë¤« (|CTRL-G| ¤ÈÆ±ÍÍ)
-"P S    ¸½ºßÉ½¼¨¤µ¤ì¤Æ¤¤¤ë¥¦¥£¥ó¥É¥¦Æâ¤Î¥Æ¥­¥¹¥È¤¬¡¢¥Õ¥¡¥¤¥ëÆâ¤Î²¿¡ó¤Î°ÌÃÖ¤Ë¤¢¤ë¤«¡£
-"a S    ´ûÄê¤Î¥¿¥¤¥È¥ë¤ÈÆ±ÍÍ¤Î°ú¿ô¥Õ¥¡¥¤¥ë¥ê¥¹¥È¤ò"({current} of {max})" ¤ÈÉ½¼¨¤¹¤ë¡£¥Õ¥¡¥¤¥ë°ú¿ô¤Î¿ô¤¬0¤Ş¤¿¤Ï1¤Î¤È¤­¤Ï¶õ¡£
-"{ NF   '%{' ¤È '}' ¤Î´Ö¤Î expression ¤òÉ¾²Á¤·¡¢·ë²Ì¤ËÃÖ¤­´¹¤¨¤ë¡£ÊÄ¤¸³ç¸Ì '}' ¤ÎÁ°¤Ë¤Ï '%' ¤¬¤Ä¤«¤Ê¤¤¤³¤È¤ËÃí°Õ¡£
-"( -    ¹àÌÜ¥°¥ë¡¼¥×¤Î³«»Ï¡£¥°¥ë¡¼¥×Æâ¤Î¹àÌÜÁ´¤Æ¤ËÂĞ¤¹¤ëÉı¤È´ó¤»Êı¤ÎÀßÄê¤Ë»È¤¨¤ë¡£¤É¤³¤«¤Ç %) ¤ÇÊÄ¤¸¤é¤ì¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¡£
-") -    ¹àÌÜ¥°¥ë¡¼¥×¤Î½ªÎ»¡£Íó width ¤Ï»ØÄê¤Ç¤­¤Ê¤¤¡£
-"T N    'tabline' ÍÑ: ¥é¥Ù¥ë¡Ö¥¿¥Ö¥Ú¡¼¥¸ N¡×¤Î³«»Ï¡£ºÇ¸å¤Î¥é¥Ù¥ë¤Î¸å¤Ë%T ¤ò½ñ¤¯¤³¤È¡£¤³¤Î¾ğÊó¤Ï¥Ş¥¦¥¹¥¯¥ê¥Ã¥¯¤Ë»È¤ï¤ì¤ë¡£
-"X N    'tabline' ÍÑ: ¥é¥Ù¥ë¡Ö¥¿¥Ö N ¤òÊÄ¤¸¤ë¡×¤Î³«»Ï¡£¥é¥Ù¥ë¤Î¸å¤Ë %X ¤ò½ñ¤¯¤³¤È¡£Îã: %3Xclose%X¡£%999X ¤Ï¡Ö¥«¥ì¥ó¥È¥¿¥Ö¤òÊÄ¤¸¤ë¡×¤ò°ÕÌ£¤¹¤ë¡£¤³¤Î¾ğÊó¤Ï¥Ş¥¦¥¹¥¯¥ê¥Ã¥¯¤Ë»È¤ï¤ì¤ë¡£
-"< -    ¹Ô¤¬Ä¹¤¹¤®¤ë¤È¤­¤ËÀÚ¤êµÍ¤á¤ë°ÌÃÖ¡£´ûÄê¤Ç¤ÏÀèÆ¬¡£Íó width ¤Ï»ØÄê¤Ç¤­¤Ê¤¤¡£
-"= -    º¸´ó¤»¹àÌÜ¤È±¦´ó¤»¹àÌÜ¤Î¶èÀÚ¤ê¡£Íó width ¤Ï»ØÄê¤Ç¤­¤Ê¤¤¡£
-"# -    ¶¯Ä´¥°¥ë¡¼¥×¤òÀßÄê¤¹¤ë¡£¤³¤Î¸å¤ËÌ¾Á°¤ò½ñ¤­¡¢¤½¤Î¸å¤Ë¤Ş¤¿ # ¤ò½ñ¤¯¡£¤Ä¤Ş¤ê¡¢%#HLname# ¤È½ñ¤¯¤È¡¢¶¯Ä´¥°¥ë¡¼¥× HLname ¤Ë¤Ê¤ë¡£¥«¥ì¥ó¥È¥¦¥£¥ó¥É¥¦°Ê³°¤Î¥¹¥Æ¡¼¥¿¥¹¥é¥¤¥ó¤ËÂĞ¤·¤Æ¤âÆ±¤¸¶¯Ä´¤¬»Ü¤µ¤ì¤ë¡£
-"* -    »È¤ï¤ì¤ë¶¯Ä´É½¼¨¥°¥ë¡¼¥×¤ò User{N} ¤ËÀßÄê¤¹¤ë¡£¤³¤³¤Ç {N} ¤ÏÍóminwid ¤«¤é¼è¤é¤ì¤ë¡£Îã¤¨¤Ğ %1* ¤ÈÀßÄê¤¹¤ë¡£%* ¤ä %0* ¤ÇÄÌ¾ï¤Î¶¯Ä´É½¼¨¤òÉü¸µ¤¹¤ë¡£¶¯Ä´É½¼¨¥°¥ë¡¼¥× User{N} ¤È StatusLine ¤Î°ã¤¤¤Ï¡¢Èó¥«¥ì¥ó¥È¥¦¥£¥ó¥É¥¦¤Î¥¹¥Æ¡¼¥¿¥¹¹Ô¤Î¶¯Ä´É½¼¨¤òÀßÄê¤¹¤ë¥°¥ë¡¼¥×¤Î StatusLineNC ¤ËÅ¬ÍÑ¤µ¤ì¤ë¡£¿ô N ¤Ï 1 °Ê¾å 9 °Ê²¼¤Ç¤¢¤ë¡£
+set showtabline=2               " ã‚¿ãƒ–ã‚’å¸¸ã«è¡¨ç¤º
 
+" search
+set wrapscan                    " æœ€å¾Œã¾ã§æ¤œç´¢ã—ãŸã‚‰å…ˆé ­ã«æˆ»ã‚‹
+set ignorecase                  " å¤§æ–‡å­—å°æ–‡å­—ã®åŒºåˆ¥ã‚’ã—ãªã„
+set smartcase                   " å¤§æ–‡å­—ã‚’å«ã‚€å ´åˆï¼Œå¤§æ–‡å­—å°æ–‡å­—ã®åŒºåˆ¥ã‚’ã™ã‚‹
+set hlsearch                    " ãƒã‚¤ãƒ©ã‚¤ãƒˆã™ã‚‹
+set incsearch                   " ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã‚µãƒ¼ãƒã™ã‚‹
+set showmatch                   " æ‹¬å¼§ã®å¯¾å¿œã‚’å¼·èª¿ã—å¯¾å¿œãŒãªã‘ã‚Œã°ãƒ“ãƒ¼ãƒ—éŸ³ã§è­¦å‘Šã™ã‚‹
 
-" ¥¤¥ó¥Ç¥ó¥È (smartindent ¤òÍ­¸ú¤Ë¤¹¤ë¤È¤­¤Ï autoindent ¤âÍ­¸ú¤Ë¤¹¤Ù¤­¤é¤·¤¤¤Î¤Ç)
-set autoindent
-set smartindent
+set wrap                        " æ¨ªå¹…ãŒç‹­ã„ã¨ãæ”¹è¡Œã™ã‚‹
+set number                      " å·¦ã«è¡Œç•ªå·ã‚’è¡¨ç¤ºã™ã‚‹
+set ruler                       " ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’è¡¨ç¤º
 
-" ¸¡º÷´Ø·¸
-" ºÇ¸å¤Ş¤Ç¸¡º÷¤·¤¿¤éÀèÆ¬¤ËÌá¤ë
-set wrapscan
-" ÂçÊ¸»ú¾®Ê¸»ú¤Î¶èÊÌ¤ò¤·¤Ê¤¤
-set ignorecase
-" ÂçÊ¸»ú¤ò´Ş¤à¾ì¹ç¡¤ÂçÊ¸»ú¾®Ê¸»ú¤Î¶èÊÌ¤ò¤¹¤ë
-set smartcase
-" ¥Ï¥¤¥é¥¤¥È¤¹¤ë
-set hlsearch
-" ¥¤¥ó¥¯¥ê¥á¥ó¥È¥µ¡¼¥Á¤¹¤ë
-set incsearch
+set suffixes=.bak.swp           " ãƒ•ã‚¡ã‚¤ãƒ«åè£œå®Œã§å¯¾è±¡å¤–ã‚’è¨­å®š
+set shellslash                  " ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®åŒºåˆ‡ã‚Šå­
+set cmdheight=1                 " ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã®è¡Œæ•°
+set timeoutlen=1000             " ãƒãƒƒãƒ”ãƒ³ã‚°ï¼Œã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆæ™‚é–“
+set title                       " ã‚¿ã‚¤ãƒˆãƒ«ã«ãƒ•ã‚¡ã‚¤ãƒ«åã‚’è¡¨ç¤º
+set titleold=                   " Vimã‚’ä½¿ã£ã¦ãã‚Œã¦ï½ã‚’éè¡¨ç¤º
 
-"ÆşÎÏÃæ¤Î¥³¥Ş¥ó¥É¤ò¥¹¥Æ¡¼¥¿¥¹¤ËÉ½¼¨¤¹¤ë (±¦²¼¤ÎÊı)
-set showcmd
-
-" ³ç¸Ì¤ÎÂĞ±ş¤ò¶¯Ä´¤·¡¤ÂĞ±ş¤¬¤Ê¤±¤ì¤Ğ¥Ó¡¼¥×²»¤Ç·Ù¹ğ¤¹¤ë
-set showmatch
-
-" ²£Éı¤¬¶¹¤¤¤È¤­¡¤²ş¹Ô¤¹¤ë (¥¹¥¯¥í¡¼¥ëÉÔÍ×¤Ë¤¹¤ë)
-set wrap
-
-" º¸¤Ë¹ÔÈÖ¹æ¤òÉ½¼¨¤¹¤ë
-set number
-
-" ¥Õ¥¡¥¤¥ëÌ¾Êä´°¤ÇÂĞ¾İ³°¤òÀßÄê
-set suffixes=.bak.swp
-
-" ¥Ş¥Ã¥Ô¥ó¥°¡¤¥­¡¼¥³¡¼¥É¤Î¥¿¥¤¥à¥¢¥¦¥È»ş´Ö
-set timeoutlen=1000
-
-" ¥Ç¥£¥ì¥¯¥È¥ê¤Î¶èÀÚ¤ê»Ò
-set shellslash
-
-" ¥«¡¼¥½¥ë¤Î°ÌÃÖ¤òÉ½¼¨
-set ruler
-
-" ¥³¥Ş¥ó¥É¥é¥¤¥ó¤Î¹Ô¿ô
-set cmdheight=1
-
-" ¥¿¥¤¥È¥ë¤òÉ½¼¨¤¹¤ë
-set title
-set titleold=
-
-" ¥×¥í¥°¥é¥à»ØÄê
-if has('win32')
+" ãƒ—ãƒ­ã‚°ãƒ©ãƒ æŒ‡å®š
+if s:iswin
   set makeprg=mingw32-make
 else
   set makeprg=make
 endif
 set grepprg=internal
 
-" ¥¿¥°¤ÎÀßÄê
+" ã‚¿ã‚°ã®è¨­å®š
 if has("autochdir")
   set autochdir
   set tags=tags;
@@ -116,53 +60,33 @@ else
   set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
 endif
 
-" ¥¿¥Ö¤ÎÀßÄê
-if v:version >= 700
-  set showtabline=2
-endif
-
-" Mac¤Î¥Ğ¥°¡©ÆüËÜ¸ìÆşÎÏ¤¬ÅÓÀÚ¤ì¤ëÌäÂê¤ò²óÈò¤¹¤ë¤¿¤á
-if has('mac')
+" Macã®ãƒã‚°ï¼Ÿæ—¥æœ¬èªå…¥åŠ›ãŒé€”åˆ‡ã‚Œã‚‹å•é¡Œã‚’å›é¿ã™ã‚‹ãŸã‚
+if s:ismac
   set iminsert=1
   set imdisable
 endif
-"}}}
 
-" autocmd "{{{
-" ¥«¥ì¥ó¥È¥Ç¥£¥ì¥¯¥È¥ê¤ò³Æ¥Ğ¥Ã¥Õ¥¡¤Î¥Õ¥¡¥¤¥ë¤¬¤¢¤ë°ÌÃÖ¤ËÊÑ¹¹¤¹¤ë (CD.vim)
+
+
+" autocmd "{{{1
+" ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å„ãƒãƒƒãƒ•ã‚¡ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ä½ç½®ã«å¤‰æ›´ã™ã‚‹ (CD.vim)
 autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
-" Á°²ó½ªÎ»¤·¤¿¥«¡¼¥½¥ë¹Ô¤Ë°ÜÆ°
+" å‰å›çµ‚äº†ã—ãŸã‚«ãƒ¼ã‚½ãƒ«è¡Œã«ç§»å‹•
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
-" }}}
 
-" font "{{{
-if has('win32')
-  " WindowsÍÑ
-  "set guifont=MS_Gothic:h12:cSHIFTJIS
-  "set guifont=MS_Mincho:h12:cSHIFTJIS
-  set guifont=MS_Gothic:h9:cSHIFTJIS
-  " ¹Ô´Ö³Ö¤ÎÀßÄê
-  set linespace=1
-elseif has('mac')
-  set guifont=Monaco:h12
-  "set anti enc=utf-8 tenc=macroman gfn=Monaco:h12
-elseif has('xfontset')
-  " UNIXÍÑ (xfontset¤ò»ÈÍÑ)
-  set guifontset=a14,r14,k14
-endif
-"}}}
 
-" mouse and clipboard "{{{
+" mouse and clipboard "{{{1
 set mouse=nvr
 set mousefocus
 set mousehide
 set guioptions+=a
 set clipboard=unnamed
-"}}}
 
-" highlight "{{{
+
+
+" highlight "{{{1
 augroup filetypedetect
     autocmd BufNewFile,BufRead pf.* setf pf
 augroup END
@@ -170,70 +94,41 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
-" menu w/o selected
-hi Pmenu      ctermbg=Blue    ctermfg=White   guibg=Blue      guifg=White
-" menu selected
-hi PmenuSel   ctermbg=Red     ctermfg=White   guibg=Red       guifg=White
-" menu side bar
-hi PMenuSbar  ctermbg=Gray    ctermfg=White   guibg=Gray      guifg=White
-hi MarkWord1  ctermbg=Cyan     ctermfg=Black  guibg=#8CCBEA   guifg=Black
-hi MarkWord2  ctermbg=Green    ctermfg=Black  guibg=#A4E57E   guifg=Black
-hi MarkWord3  ctermbg=Yellow   ctermfg=Black  guibg=#FFDB72   guifg=Black
-hi MarkWord4  ctermbg=Red      ctermfg=Black  guibg=#FF7272   guifg=Black
-hi MarkWord5  ctermbg=Magenta  ctermfg=Black  guibg=#FFB3FF   guifg=Black
-hi MarkWord6  ctermbg=Blue     ctermfg=Black  guibg=#9999FF   guifg=Black
-hi Folded     cterm=bold       ctermbg=lightgreen ctermfg=black gui=bold guibg=lightgreen guifg=black
-" search
-hi Search     ctermbg=Yellow  ctermfg=Black
-" normal/insert indivisual statusline
-autocmd InsertEnter * hi StatusLine guifg=DarkBLue guibg=DarkYellow gui=none ctermfg=black  ctermbg=Yellow cterm=none
-autocmd InsertLeave * hi StatusLine guifg=DarkBLue guibg=White      gui=none ctermfg=black  ctermbg=White cterm=none
-"}}}
 
-" language and encoding "{{{
-if has('win32')
-  set encoding=cp932
-elseif $OSTYPE =~ "BSD"
-  set encoding=eucjp
-else
-  set encoding=utf8
-endif
-set fileencodings=euc-jp,iso-2022-jp,shift-jis,utf-8,cp932,utf-16,ucs-2le,ucs-2,utf-16lejapan
+
+
+" language and encoding "{{{1
+set encoding=utf8
+set fileencodings=utf-8,iso-2022-jp,shift-jis,cp932,utf-16,ucs-2le,ucs-2,utf-16lejapan
 set fileformat=unix
 set fileformats=unix,mac,dos
 set langmenu=japanese
-if $OSTYPE =~ "BSD"
-  language ja_JP.eucJP
-elseif $OSTYPE =~ "solaris"
+if OSTYPE =~ "BSD"
   language ja_JP.UTF-8
-elseif has('mac')
+elseif OSTYPE =~ "solaris"
   language ja_JP.UTF-8
-elseif $OSTYPE =~ "linux"
+elseif OSTYPE =~ "linux"
+  language ja_JP.UTF-8
+elseif s:ismac
+  language ja_JP.UTF-8
+elseif s:iswin
+  language Japanese_Japan.932
 else
   language ja_JP
 endif
-"language ja_JP.eucJP
-"}}}
 
-" backup "{{{
+
+
+" backup/undo "{{{1
 set backup
 set backupcopy=auto
-set backupdir=~/tmp
-"}}}
+set backupdir=$HOME/tmp
+set undodir=$HOME/tmp
+set directory=$HOME/tmp
 
-" mapping "{{{
-"input cwd @ commandline mode
-let mapleader=","
 
-" buffer
-"nmap <silent> <F2> :bprevious<CR>
-"nmap <silent> <F3> :bnext<CR>
-"nmap <silent> <Space><Space> :bnext<CR>
-"nmap <silent> <F4> :bd<CR>
-"nmap <silent> <Space><F2> :tabprevious<CR>
-"nmap <silent> <Space><F3> :tabnext<CR>
-"nmap <silent> <C-B> :BufExplorer<CR>
 
+" mapping "{{{1
 " move inter window
 nmap <silent><C-K> <C-W>k
 nmap <silent><C-J> <C-W>j
@@ -243,13 +138,6 @@ nmap <silent><C-H> <C-W>h
 " visual last added characters
 nmap gc `[v`]
 
-" for FizzyFinder
-nmap <C-F>b  <ESC>:FuzzyFinderBuffer<CR>
-nmap <C-F>f  <ESC>:FuzzyFinderFile<CR>
-nmap <C-F>v  <ESC>:FuzzyFinderFavFile<CR>
-nmap <C-F>d  <ESC>:FuzzyFinderDir<CR>
-nmap <C-F>t  <ESC>:FuzzyFinderTag<CR>
-
 " undo
 nmap < g-
 nmap > g+
@@ -258,41 +146,40 @@ nmap > g+
 nmap <silent> <Tab> <C-I>
 nmap <silent> <S-Tab> <C-O>
 
-" command mode »ş tcshÉ÷¤Î¥­¡¼¥Ğ¥¤¥ó¥É¤Ë
+" command mode æ™‚ tcshé¢¨ã®ã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰ã«
 cmap <C-A> <Home>
 cmap <C-F> <Right>
 cmap <C-B> <Left>
 cmap <C-D> <Delete>
 
-" É½¼¨¹ÔÃ±°Ì¤Ç¹Ô°ÜÆ°¤¹¤ë
+" è¡¨ç¤ºè¡Œå˜ä½ã§è¡Œç§»å‹•ã™ã‚‹
 nmap j gj
 nmap k gk
 vmap j gj
 vmap k gk
 
-" ÊÔ½¸Ãæ°ÜÆ°¤¹¤ë
+" ç·¨é›†ä¸­ç§»å‹•ã™ã‚‹
 imap <C-E> <C-X><C-E>
 imap <C-Y> <C-X><C-Y>
 
-" f ¤Ç¤ÎÃµº÷¤ÏÁ°Êı¤¬ ; ¸åÊı¤¬ , ¤À¤¬ , ¤Ï vim-howm ¤Ç»È¤Ã¤Æ¤¤¤ë¤Î¤Ç<space>;¤ò,Âå¤ï¤ê¤Ë¤¹¤ë
+" f ã§ã®æ¢ç´¢ã¯å‰æ–¹ãŒ ; å¾Œæ–¹ãŒ , ã ãŒ , ã¯ vim-howm ã§ä½¿ã£ã¦ã„ã‚‹ã®ã§<space>;ã‚’,ä»£ã‚ã‚Šã«ã™ã‚‹
 nnoremap <space>; ,
 
-" ,t ¤Ç»ş´Ö¤òÉ½¼¨¤¹¤ë (¥á¥â¤ò¤È¤ë(howmÅù)¤È¤­¤Ë»È¤¨¤ë¤«¤â)
+" ,t ã§æ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹ (ãƒ¡ãƒ¢ã‚’ã¨ã‚‹(howmç­‰)ã¨ãã«ä½¿ãˆã‚‹ã‹ã‚‚)
 nmap ,td :call append(line("."), "[" . strftime("%Y-%m-%d") . "]")<CR>
 nmap ,tt :call append(line("."), "[" . strftime("%H:%M:%S") . "]")<CR>
 
-" ESC ¤òÏ¢ÂÇ¤·¤Æ¥Ï¥¤¥é¥¤¥È¤ò¤ä¤á¤ë
+" ESC ã‚’é€£æ‰“ã—ã¦ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’ã‚„ã‚ã‚‹
 nmap <silent> <ESC><ESC> :nohlsearch<CR>
 
-" ¥³¥Ş¥ó¥É¥é¥¤¥ó¤Ç¡¤¥«¥ì¥ó¥È¥Ç¥£¥ì¥¯¥È¥ê¤òÊä´°¤¹¤ë
+" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã§ï¼Œã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’è£œå®Œã™ã‚‹
 cnoremap <C-x> <C-r>=expand('%:p:h')<CR>/
 
-" mapleader ¤òÌá¤¹
-let mapleader="\\"
+" ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã§MRUæ¤œç´¢ã™ã‚‹ã€‚å…¥åŠ›ä½ç½®ã‚’ãƒ•ã‚£ãƒ«ã‚¿å ´æ‰€ã«ã™ã‚‹ã€‚
+cnoremap <C-f> <C-u>/ oldfiles<Home>browse filter /
 
-"}}}
 
-" fold "{{{
+" fold "{{{1
 set foldtext=MyFoldText()
 function! MyFoldText()
   let line = getline(v:foldstart)
@@ -303,128 +190,52 @@ function! MyFoldText()
 endfunction
 set foldmethod=marker
 set foldenable
-"}}}
-"}}}
 
-" abbreviate "{{{
+
+
+" abbreviate "{{{1
 abbreviate #i #include
 abbreviate #d #define
-" }}}
 
-" vim-latex "{{{
-let g:Tex_FormatDependency_pdf = 'dvi,pdf'
-let g:Tex_CompileRule_dvi = 'platex -kanji=euc -progname=platex -fmt=platex-euc $*'
-let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
-if has('win32')
-  let g:Tex_ViewRule_dvi = 'c:\tex\dviout\dviout.exe'
-elseif has('mac')
-  "let g:Tex_ViewRule_pdf = 'open -a "/Applications/Adobe Reader 9/Adobe Reader.app/"'
-  let g:Tex_ViewRule_pdf = 'open -a "/Applications/Preview.app/"'
+
+
+" QFixHowm "{{{1
+let QFixHowm_Key        = ','      "ã‚­ãƒ¼ãƒãƒƒãƒ—ãƒªãƒ¼ãƒ€ãƒ¼
+let QFixHowm_FileType   = 'qfix_memo'
+let QFixHowm_HolidayFile= 'Sche-Hd-0000-00-00-000000.txt'
+let howm_dir            = '~/work/howm'
+let howm_filename       = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
+let howm_fileencoding   = 'utf8'
+let howm_fileformat     = 'dos'
+
+
+
+" Vundle " {{{1
+set runtimepath+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'fuenor/qfixhowm'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'Shougo/denite.nvim'
+Plugin 'Lokaltog/vim-easymotion'
+" ColorScheme
+"Plugin 'cocopon/iceberg.vim'
+"Plugin 'romainl/Apprentice'
+"Plugin 'jacoborus/tender.vim'
+Plugin 'gosukiwi/vim-atom-dark'
+Plugin 'raphamorim/lucario'
+Plugin 'jonathanfilip/vim-lucius'
+call vundle#end()
+
+
+
+" read local config "{{{1
+if filereadable( $VIM . "/_vimrc_local" )
+  source $VIM/_vimrc_local
 endif
-"}}}
-
-" QFixHowm "{{{
-set runtimepath+=$HOME/.vim/qfixapp
-"¥­¡¼¥Ş¥Ã¥×¥ê¡¼¥À¡¼
-let QFixHowm_Key = ','
-
-"howm_dir¤Ï¥Õ¥¡¥¤¥ë¤òÊİÂ¸¤·¤¿¤¤¥Ç¥£¥ì¥¯¥È¥ê¤òÀßÄê¡£
-if has('win32')
-  let howm_dir             = 'C:\misc\howm'
-else
-  let howm_dir             = '~/work/howm'
+if filereadable( $HOME . "/.vimrc_local" )
+  source $HOME/.vimrc_local
 endif
-let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
-let howm_fileencoding    = 'cp932'
-let howm_fileformat      = 'dos'
 
-"}}}
 
-" minibfexp "{{{
-let g:miniBufExplMapWindowNavVim=1 "hjkl¤Ç°ÜÆ°
-let g:miniBufExplSplitBelow=0  " Put new window above
-let g:miniBufExplMapWindowNavArrows=1
-let g:miniBufExplMapCTabSwitchBufs=1
-let g:miniBufExplModSelTarget=1 
-let g:miniBufExplSplitToEdge=1
-"}}}
-
-" functions "{{{
-" go_to_mark() "{{{
-function! s:go_to_mark()
-  redir => _
-  silent marks
-  redir END
-
-  let marks = split(_, "\n")
-  let top = substitute(marks[0], '^\s*', '', '')
-  let marks = filter(marks, "v:val =~# '^\\s[a-zA-Z1-9]'")
-
-  redraw!
-  echohl Title | echo top | echohl None
-  for m in marks
-    echo m
-  endfor
-  echo ""
-
-  echon 'go to the mark?: '
-  let c = nr2char(getchar())
-  redraw!
-
-  if c =~# "[\<C-c>\<Esc>]"
-    return
-  elseif c !~# '[a-zA-Z]'
-    return
-  endif
-
-  execute 'normal! ' . '`' . c
-endfunction
-
-nnoremap <silent> <Space>m :<C-u>call <SID>go_to_mark()<CR>
-"}}}
-"}}}
-
-" Google CL "{{{
-"let GoogleCL = '$HOME/work/googlecl'
-"
-"" vim½ªÎ»»ş¤Ë¼«Æ°¤Ç¥¢¥Ã¥×¥í¡¼¥É
-"let GD_AutoUpload = 1
-"
-""GoogleDocsÅĞÏ¿ÍÑ¤Î°ì»ş¥Õ¥¡¥¤¥ëÊİÂ¸¾ì½ê
-"let GD_TempDir = '$HOME/tmp/howm_gdtemp'
-"
-"" howm¥Õ¥¡¥¤¥ëÊİÂ¸¸å¤Î¼«Æ°½èÍıÍÑ´Ø¿ô
-"function! QFixHowmBufWritePost()
-"  "Google Docs¤Ø¤ÎÊİÂ¸½èÍı
-"  call GDSave()
-"endfunction
-"}}}
-
-" vim-textmanip "{{{
-"vmap <C-j> <Plug>(Textmanip.move_selection_down)
-"vmap <C-k> <Plug>(Textmanip.move_selection_up)
-"vmap <C-h> <Plug>(Textmanip.move_selection_left)
-"vmap <C-l> <Plug>(Textmanip.move_selection_right)
-"vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-"nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
-"}}}
-
-" YankRing.vim "{{{
-" ¥ì¥¸¥¹¥¿¤ÎÆâÍÆ°ìÍ÷¤òÉ½¼¨ (YankRing.vim)
-nmap ,y :YRShow<CR>
-let g:yankring_max_history = 100
-let g:yankring_window_height = 10
-"}}}
-
-" showmark ""{{{
-hi ShowMarksHLl ctermfg=white ctermbg=blue cterm=bold guifg=blue guibg=lightblue gui=bold
-hi ShowMarksHLu ctermfg=white ctermbg=blue cterm=bold guifg=blue guibg=lightblue gui=bold
-hi ShowMarksHLo ctermfg=white ctermbg=blue cterm=bold guifg=blue guibg=lightblue gui=bold
-hi ShowMarksHLm ctermfg=white ctermbg=blue cterm=bold guifg=blue guibg=lightblue gui=bold
-"}}}
-
-" Neocomplcache ""{{{
-let g:neocomplcache_enable_at_startup = 1
-"
-"}}}
 
