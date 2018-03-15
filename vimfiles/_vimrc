@@ -1,6 +1,7 @@
 " detect OS "{{{1
 let s:iswin = has('win32') || has('win64')
 let s:ismac = has('mac')
+let OSTYPE = system('uname -a')
 
 " set "{{{1
 set wildmode=list:longest       " 補完リストを表示
@@ -102,16 +103,16 @@ set fileencodings=utf-8,iso-2022-jp,shift-jis,cp932,utf-16,ucs-2le,ucs-2,utf-16l
 set fileformat=unix
 set fileformats=unix,mac,dos
 set langmenu=japanese
-if $OSTYPE =~ "BSD"
-  language ja_JP.eucJP
-elseif $OSTYPE =~ "solaris"
+if OSTYPE =~ "BSD"
+  language ja_JP.UTF-8
+elseif OSTYPE =~ "solaris"
+  language ja_JP.UTF-8
+elseif OSTYPE =~ "linux"
   language ja_JP.UTF-8
 elseif s:ismac
   language ja_JP.UTF-8
 elseif s:iswin
   language Japanese_Japan.932
-elseif $OSTYPE =~ "linux"
-  language ja_JP.UTF-8
 else
   language ja_JP
 endif
