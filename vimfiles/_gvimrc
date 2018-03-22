@@ -10,6 +10,7 @@ elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a10,r10,k10
 endif
+set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
 
 
 
