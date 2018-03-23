@@ -1,5 +1,5 @@
-set VIM=%USERPROFILE%\Documents\ogataysa\901_Tools\vim80
-set DOTFILES=%USERPROFILE%\Documents\ogataysa\dotfiles.git\vimfiles
+set VIM=%USERPROFILE%\Documents\001_Software\vim80
+set DOTFILES=%USERPROFILE%\Documents\dotfiles.git\vimfiles
 mklink %VIM%\_vimrc       %DOTFILES%\_vimrc
 mklink %VIM%\_vimrc_local %DOTFILES%\_vimrc_local
 mklink %VIM%\_gvimrc      %DOTFILES%\_gvimrc
