@@ -207,6 +207,14 @@ let howm_dir            = '~/work/howm'
 let howm_filename       = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
 let howm_fileencoding   = 'utf8'
 let howm_fileformat     = 'dos'
+let QFixHowm_MenuRecent = 10
+let QFixHowm_RandomWalkColumns = 5
+let QFixHowm_RecentDays = 30
+let MyGrep_MultiEncoding = 1
+let MyGrep_MultiEncodingList = ['utf-8', 'cp932']
+
+
+
 
 
 
@@ -215,6 +223,7 @@ set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'fuenor/qfixhowm'
+Plugin 'fuenor/qfixgrep'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'Shougo/denite.nvim'
 Plugin 'Lokaltog/vim-easymotion'
