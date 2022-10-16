@@ -4,7 +4,7 @@ test -f $SSH_AGENT_FILE && source $SSH_AGENT_FILE
 if ! ssh-add -l > /dev/null 2>&1; then
     ssh-agent > $SSH_AGENT_FILE
     source $SSH_AGENT_FILE
-    ssh-add $HOME/.ssh/id_rsa_bitbucket
+    ssh-add $HOME/.ssh/bitbucket_rsa
 fi
 
 
@@ -13,5 +13,5 @@ Host bitbucket bitbucket.org
     HostName bitbucket.org
     User git
     Port 22
-    identityFile ~/.ssh/id_rsa_bitbucket
+    identityFile ~/.ssh/_bitbucket_rsa
     ForwardAgent yes
