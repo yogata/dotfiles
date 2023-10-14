@@ -1,63 +1,63 @@
 #escape ^z^z
 escape 
 
-bell "Bell in window %."        # ����Ƥ��륦����ɥ��ǥӡ��פ��ʤä��Ȥ��Υ�å�����
-vbell off                       # ����ȿž������ӥ��奢��٥��Ȥ�
-autodetach on                   # ��³�ǻ��˼�ư�ǥǥ��å�����
-startup_message off             # �������ȥ��åץ�å�������ɽ������
-multiuser on                    # ���̤�ͭ����
-#defmonitor on                   # ����Ƥ��륦����ɥ���ư���������������
+bell "Bell in window %."        # 隠れているウィンドウでビープがなったときのメッセージ
+vbell off                       # 画面反転させるビジュアルベルを使う
+autodetach on                   # 接続断時に自動でデタッチする
+startup_message off             # スタートアップメッセージを表示する
+multiuser on                    # 画面を共有する
+#defmonitor on                   # 隠れているウィンドウに動きがあれば伝える
 activity "Activity in window %."
-                                # ����Ƥ��륦����ɥ���ư����������������å�����
-defscrollback 1000              # ��¸���Ƥ����Կ�
-msgwait 5                       # ��å�������ɽ���������(sec)
-msgminwait 1                    # ���Υ�å�������ɽ������ޤǤ��ٱ����(sec)
-#deflogin on                     # ������window�򳫤��٤�/etc/utmp�˿���������ȥ���ɲä���
+                                # 隠れているウィンドウで動きがあれば伝えるメッセージ
+defscrollback 1000              # 保存しておく行数
+msgwait 5                       # メッセージを表示する時間(sec)
+msgminwait 1                    # 次のメッセージを表示するまでの遅延時間(sec)
+#deflogin on                     # 新しいwindowを開く度に/etc/utmpに新しいエントリを追加する
 hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
-                                # �����ߥʥ�Υ��ơ������饤���Ȥ�
-idle 3600                       # screen blanker��ư�Ԥ�����
-#blankerprg fortune              # screen blanker�ץ���������Ͽ
+                                # ターミナルのステータスラインを使う
+idle 3600                       # screen blanker起動待ち時間
+#blankerprg fortune              # screen blankerプログラムの登録
 altscreen on                    # 
 
 
-# ���ơ������饤��
-# a: 'am' or 'pm'                           m: ��(����)
-# A: 'AM' or 'PM'                           M: ��(�Ѹ�)
-# c: 24����ɽ��(�ե����ޥåȤ�HH:MM)        s: ��
-# C: 12����ɽ��(�ե����ޥåȤ�HH:MM)        t: �����ɥ��Υ����ȥ�
-# d: ��                                     u: ���Υ�����ɥ��ˤ��뼫ʬ�ʳ��Υ桼��
-# D: ����                                   w: ������ɥ����ֹ��̾���Υꥹ��
-# h: ���Υ�����ɥ��Υϡ��ɥ��ơ�����       W: ������ɥ����ֹ��̾���Υꥹ��(��ʬ�ʳ�)
-# l: �����ƥ���ղ�                         y: ����β�2��
-#                                           Y: ����
+# ステータスライン
+# a: 'am' or 'pm'                           m: 月(数字)
+# A: 'AM' or 'PM'                           M: 月(英語)
+# c: 24時間表示(フォーマットはHH:MM)        s: 秒
+# C: 12時間表示(フォーマットはHH:MM)        t: ウィドウのタイトル
+# d: 日                                     u: そのウィンドウにいる自分以外のユーザ
+# D: 曜日                                   w: ウィンドウの番号と名前のリスト
+# h: そのウィンドウのハードステータス       W: ウィンドウの番号と名前のリスト(自分以外)
+# l: システムの付加                         y: 西暦の下2桁
+#                                           Y: 西暦
 #
-# +: ���ȥ�ӥ塼�Ȥ��ɲ�                   !: ���ȥ�ӥ塼�Ȥ�ͭ��̵����ȿž
-# -: ���ȥ�ӥ塼�Ȥ���                   =: ���ȥ�ӥ塼�Ȥ��ѹ�
+# +: アトリビュートを追加                   !: アトリビュートの有効無効を反転
+# -: アトリビュートを削除                   =: アトリビュートを変更
 #
-# u: ��������饤��                         s: �̾����
-# b: �ܡ����                               B: �֥��
-# r: ȿž
+# u: アンダーライン                         s: 通常出力
+# b: ボールド                               B: ブリンク
+# r: 反転
 #
-# k: ��                                     m: ��
-# r: ��                                     c: �忧
-# g: ��                                     w: ��
-# y: ��                                     d: �ǥե����
-# b: ��                                     .: ���Ѳ��ʤ�
+# k: 黒                                     m: 紫
+# r: 赤                                     c: 水色
+# g: 緑                                     w: 白
+# y: 黄                                     d: デフォルト
+# b: 青                                     .: 色変化なし
 #caption always "%{= wg} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%y/%m/%d(%D) %{=b wm}%c"
 
-# �����Х���ɤξ��
+# キーバインドの上書き
 markkeys "B=^B:F=^F"
 
 # bind
-# bind '����' ̿��
-# �Ȥ��뤳�Ȥǡ�escape+�����򲡤���escape+':̿��'�Ȳ�������Ʊ���ˤʤ�
-bind w windowlist -b        # ������ɥ�������˥塼�����ǹԤ�
+# bind 'キー' 命令
+# とすることで，escape+キーを押せばescape+':命令'と押す場合と同等になる
+bind w windowlist -b        # ウィンドウ選択をメニュー形式で行う
 bind ^p paste
 #bind p paste
-bind r eval 'echo "Resize window"' 'command -c resize'  # "Resize window"��ɽ�������礭������⡼�ɤ�
+bind r eval 'echo "Resize window"' 'command -c resize'  # "Resize window"と表示して大きさ設定モードに
 bind -c resize ^]  command
-bind -c resize j eval 'resize +1' 'command -c resize'   # j��1���礭������
-bind -c resize k eval 'resize -1' 'command -c resize'   # l��1�ʾ���������
+bind -c resize j eval 'resize +1' 'command -c resize'   # jで1段大きくする
+bind -c resize k eval 'resize -1' 'command -c resize'   # lで1段小さくする
 bind ^U encoding utf8
 bind ^E encoding euc-jp
 
