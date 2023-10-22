@@ -1,4 +1,9 @@
-" font settings "{{{1
+" menulang{{{
+set langmenu=ja_jp.utf-8
+"}}}
+
+
+" font settings "{{{
 if has('win32')
 "  set guifont=MS_Gothic:h12:cSHIFTJIS   "
   set guifont=MS_Gothic:h12             " 
@@ -11,10 +16,10 @@ elseif has('xfontset')
   set guifontset=a10,r10,k10
 endif
 "set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+"}}}
 
 
-
-" font size change mapping "{{{1
+" font size change mapping "{{{
 " func
 if has("unix")
     function! FontSizePlus ()
@@ -45,18 +50,19 @@ else
       let &guifont = substitute(&guifont, ':h\d\+$', l:new_font_size, '')
     endfunction
 endif
+"}}}
 
-" map
+
+" map "{{{
 nmap + :call FontSizePlus()<CR>
 nmap - :call FontSizeMinus()<CR>
+"}}}
 
 
-
-
-" color scheme "{{{1
+" color scheme "{{{
 "colorscheme tender
 "colorscheme atom-dark
 "colorscheme lucario
 colorscheme lucius
 LuciusBlack
-
+"}}}
